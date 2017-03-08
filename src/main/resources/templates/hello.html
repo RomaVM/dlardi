@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Выйти"/>
+    </form>
+    <h1 th:inline="text">Здравствуй [[${#httpServletRequest.remoteUser}]]!</h1>
+    <span class="label label-success" th:if="${param.del != null}">Запись успешно удалена</span>
+
+    <form action="#" th:action="@{/hello}" th:object="${recordForm}" method="post">
+        <div class="form-group">
+            <label for="firstName">Имя:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" name="firstName" placeholder="Введите имя"/>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Фамилия:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" name="lastName" placeholder="Введите фамилию"/>
+        </div>
+        <div class="form-group">
+            <label for="lastName">Отчество:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"></span>
+            <input type="text" class="form-control" id="middleName" th:field="*{middleName}" name="middleName" placeholder="Введите отчество"/>
+        </div>
+        <div class="form-group">
+            <label for="mobileTel">Мобильный телефон:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('mobileTel')}" th:errors="*{mobileTel}"></span>
+            <input type="text" class="form-control" id="mobileTel" th:field="*{mobileTel}" name="mobileTel" placeholder="Введите моб. телефон"/>
+        </div>
+        <div class="form-group">
+            <label for="homeTel">Домашний телефон:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('homeTel')}" th:errors="*{homeTel}"></span>
+            <input type="text" class="form-control" id="homeTel" th:field="*{homeTel}" name="homeTel" placeholder="Введите дом. телефон"/>
+        </div>
+        <div class="form-group">
+            <label for="address">Адресс:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></span>
+            <input type="text" class="form-control" id="address" th:field="*{address}" name="address" placeholder="Адресс"/>
+        </div>
+        <div class="form-group">
+            <label for="mail">Почта:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('mail')}" th:errors="*{mail}"></span>
+            <input type="text" class="form-control" id="mail" th:field="*{mail}" name="mail" placeholder="Почта"/>
+        </div>
+        <button type="submit" name="ok" class="btn btn-success">Добавить запись</button>
+        <span class="label label-success" th:if="${param.par != null}">Запись успешно добавлена</span>
+    </form>
+    <div>
+    <form>
+        <br/>
+        <div class="input-group">
+            <input type="text" class="form-control" name="filtr1" placeholder="Фильтр по имени"/>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" name="first_name">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="filtr2" placeholder="Фильтр по фамилии"/>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" name="last_name">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+        <div class="input-group">
+            <input type="text" class="form-control" name="filtr3" placeholder="Фильтр по номеру"/>
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" name="tel_number">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" name="dis_filtr">Отменить все фильтры</button>
+    </form>
+        <br/>
+    <table class="table" th:if="${not #lists.isEmpty(records)}">
+        <thead>
+        <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отчество</th>
+            <th>Моб. номер</th>
+            <th>Дом. номер</th>
+            <th>Адресс</th>
+            <th>Е-мейл</th>
+            <th>Удалить</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.firstName}"></td>
+            <td th:text="${record.lastName}"></td>
+            <td th:text="${record.middleName}"></td>
+            <td th:text="${record.mobileTel}"></td>
+            <td th:text="${record.homeTel}"></td>
+            <td th:text="${record.address}"></td>
+            <td th:text="${record.mail}"></td>
+            <td><a th:href="@{'/hello/remove/' + ${record.id}}">Удалить</a></td>
+        </tr>
+
+        </tbody>
+    </table>
+    </div>
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

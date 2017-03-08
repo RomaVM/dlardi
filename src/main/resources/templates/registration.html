@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h2>Регистрация личного телефонного справочника</h2>
+    <form action="#" th:action="@{/registration}" th:object="${registrationForm}" method="post">
+        <div class="form-group">
+            <label for="full_name">ФИО:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+            <input type="text" class="form-control" id="full_name" th:field="*{fullName}" name="fullname" placeholder="Введите ФИО"/>
+        </div>
+        <div class="form-group">
+            <label for="login">Логин:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+            <input type="text" class="form-control" id="login" th:field="*{login}" name="login" placeholder="Введите логин"/>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Пароль:</label>
+            <span class="label label-warning" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            <input type="password" class="form-control" id="pwd" th:field="*{password}" name="pwd" placeholder="Введите пароль"/>
+        </div>
+        <button type="submit" name="ok" class="btn btn-default">Зарегистрироваться</button>
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
